@@ -12,4 +12,20 @@ app.get('/sum', (req, res) => {
 
 });
 
+app.get('/cipher', (req, res) => {
+  let { text } = req.query;
+  let { shift } = req.query;
+  console.log(text);
+  text = text.toUpperCase();
+  shift = parseInt(shift);
+
+  const letters = text.split('').map(letter => {
+    if(letter === ' ') return letter;
+    return String.fromCharCode((((letter.charCodeAt(0) + shift) - 65) % 26) + 65)
+  });
+
+  res.send(letters.join(''));
+
+});
+
 app.listen(8000, () => console.log('Listening on port 8000'));
